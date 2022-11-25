@@ -28,10 +28,16 @@ export const isUpDown =
   (fn: (d: [number, number]) => boolean) => (arr: Observable<number>) =>
     arr.pipe(pairwise(), map(fn));
 
+export const isUp = isUpDown(([pre, cur]) => pre < cur);
+
+export const isDown = isUpDown(([pre, cur]) => pre > cur);
+
 const intervals = interval(1000);
 
 // intervals.pipe(groupAverage(1)).subscribe(console.log);
 // intervals.pipe(group(3)).subscribe(console.log);
-intervals.pipe(average).subscribe(console.log);
+// intervals.pipe(average).subscribe(console.log);
+
+intervals.pipe(isDown).subscribe(console.log);
 
 // Open the console in the bottom right to see results.
